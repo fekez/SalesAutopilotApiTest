@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      # Mount source for live editing during development
+      - .:/var/www/html
+      # Prevent host node_modules/vendor from overriding container's
+      - /var/www/html/vendor
+    env_file:
+      - .env
+    restart: unless-stopped
