@@ -16,7 +16,7 @@ class SalesAutopilotClient
         private string $baseUrl,
         private string $username,
         private string $password,
-        private int $timeout = 10,
+        private float $timeout = 10.0,  // int -> float
     ) {
         $this->http = new Client([
             'base_uri' => rtrim($baseUrl, '/') . '/',

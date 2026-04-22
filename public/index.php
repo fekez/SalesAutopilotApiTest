@@ -8,10 +8,10 @@ use Dotenv\Dotenv;
 use Dotenv\Exception\ValidationException;
 
 // Load .env
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv = Dotenv::createUnsafeMutable(__DIR__ . '/../');
 
 try {
-    $dotenv->load();
+    $dotenv->safeLoad();
     $dotenv->required(['SAPI_USERNAME', 'SAPI_PASSWORD', 'SAPI_BASE_URL'])->notEmpty();
 } catch (ValidationException $e) {
     $error = 'Hiányzó API konfiguráció. Töltse ki a .env fájlt (lásd: .env.example).';
@@ -31,7 +31,7 @@ try {
         baseUrl:  $_ENV['SAPI_BASE_URL'],
         username: $_ENV['SAPI_USERNAME'],
         password: $_ENV['SAPI_PASSWORD'],
-        timeout:  (int) ($_ENV['SAPI_TIMEOUT'] ?? 10),
+        timeout: (float) ($_ENV['SAPI_TIMEOUT'] ?? 10),
     );
 
     $listService       = new \App\Service\ListService($client);

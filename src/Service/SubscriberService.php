@@ -13,6 +13,7 @@ class SubscriberService
         $subscribers = $this->client->getSubscribers($listId, limit: 20);
 
         if (!empty($filter)) {
+            $filter = trim($filter);
             $subscribers = array_filter($subscribers, fn($s) =>
             str_contains(strtolower($s['email'] ?? ''), strtolower($filter))
             );
